@@ -25,19 +25,27 @@ pip install requirements.txt
 
 ###Cấu trúc thư mục
 
-**Text
-download
-content_copy
-expand_less
-.
+datacore-board-assessment/
+├── README.md                  # Setup, how to run, your approach
+├── requirements.txt            # Python dependencies (pinned versions)
+├── config.yaml                 # All configurable parameters
+├── src/
+│   ├── scrape_cafef.py        # Task 1 scraper
+│   ├── scrape_vietstock.py    # Task 2 scraper
+│   ├── merge.py               # Task 3 merge logic
+│   └── utils.py               # Shared utilities (name normalization, etc.)
 ├── data/
-│   ├── raw/          # Chứa file parquet thô từ scraper
-│   └── processed/    # Chứa file parquet đã xử lý
-|    └── final/        # Chứa file parquet đã hợp nhất
-├── docs/             # Chứa báo cáo chất lượng và từ điển dữ liệu
-├── notebooks/        # Chứa file phân tích EDA
-└── src/              # Chứa mã nguồn scraper và pipeline
-└── tests/            # Chứa các unit test
+│   ├── raw/                   # Raw scraped outputs
+│   ├── processed/             # Cleaned individual source data
+│   └── final/                 # Merged golden dataset
+├── docs/
+│   ├── data_dictionary.md     # Field definitions and metadata
+│   └── data_quality_report.md # Quality analysis
+├── notebooks/
+│   ├── main.ipynb             # EDA
+│   └── observe.md             # review table of data        
+└── tests/                         # Unit tests
+
 ##🛠️ 2. How to Run
 
 Hệ thống được thiết kế chạy theo thứ tự các Task:
