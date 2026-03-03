@@ -1,26 +1,26 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
+import os
+import pandas as pd
+from datetime import datetime
+from utils import crawl_latest_board, save_to_parquet
+import json
+import time
+# file path lưu data được lưu
 
-options = Options()
-options.add_argument('--remote-allow-origins=*')
+file_path = "../data/raw/vietstock_board.parquet"
 
-# WebDriverManager sẽ tự tìm bản Chrome bạn đang dùng và tải Driver tương ứng
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
+# Nơi lưu các tickers của mỗi exchange
+file_json_tickers ="../data/raw/all_tickers.json"
 
-driver.get("https://finance.vietstock.vn/A32/ban-lanh-dao.htm")
+result = []
 
-page_html = driver.page_source
-if "Nguyễn Thế Anh" in page_html:
-    print("Dữ liệu nằm trong HTML, không cần tìm API!")
-else:
-    print("Dữ liệu không có trong HTML, chắc chắn có API hoặc iframe.")
+with open(file_json_tickers, "r", encoding=("utf-8")) as f:
+    all_tickers = json.load(f)
 
+for exchange, tickers_list in all_tickers.items():
+    for ticker in tickers_list[:30]:
+        result.extend(crawl_latest_board(ticker, exchange))
+        print(f"Xử lý thành công {ticker}")
+        time.sleep(1)
 
-
-# Đọc dữ liệu các mã tickers đã được lưu
-json_path = "../data/raw/all_tickers.json"
-
-with open()
+# Lưu vào parquet
+save_to_parquet(result, "../data/raw/vietstock_board.parquet")
