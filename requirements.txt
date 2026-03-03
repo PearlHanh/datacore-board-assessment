@@ -10,4 +10,12 @@ os
 curl_cffi
 urllib3
 re
+unidecode
+logging
+random
+typing
+numpy
+matplotlib
+seaborn
+plotly
 

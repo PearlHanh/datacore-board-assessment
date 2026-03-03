@@ -1,0 +1,251 @@
+2026-03-03 23:35:45,899 - INFO - --- Đang crawl Vietstock: AAA ---
+2026-03-03 23:35:46,982 - INFO - Thành công AAA: Lấy được 11 lãnh đạo.
+2026-03-03 23:35:47,985 - INFO - --- Đang crawl Vietstock: AAM ---
+2026-03-03 23:35:49,097 - INFO - Thành công AAM: Lấy được 13 lãnh đạo.
+2026-03-03 23:35:50,099 - INFO - --- Đang crawl Vietstock: AAT ---
+2026-03-03 23:35:51,293 - INFO - Thành công AAT: Lấy được 13 lãnh đạo.
+2026-03-03 23:35:52,296 - INFO - --- Đang crawl Vietstock: ABR ---
+2026-03-03 23:35:53,415 - INFO - Thành công ABR: Lấy được 10 lãnh đạo.
+2026-03-03 23:35:54,418 - INFO - --- Đang crawl Vietstock: ABS ---
+2026-03-03 23:35:55,429 - INFO - Thành công ABS: Lấy được 11 lãnh đạo.
+2026-03-03 23:35:56,435 - INFO - --- Đang crawl Vietstock: ABT ---
+2026-03-03 23:35:57,189 - INFO - Thành công ABT: Lấy được 8 lãnh đạo.
+2026-03-03 23:35:58,191 - INFO - --- Đang crawl Vietstock: ACB ---
+2026-03-03 23:36:00,481 - INFO - Thành công ACB: Lấy được 20 lãnh đạo.
+2026-03-03 23:36:01,484 - INFO - --- Đang crawl Vietstock: ACC ---
+2026-03-03 23:36:02,528 - INFO - Thành công ACC: Lấy được 10 lãnh đạo.
+2026-03-03 23:36:03,531 - INFO - --- Đang crawl Vietstock: ACG ---
+2026-03-03 23:36:04,787 - INFO - Thành công ACG: Lấy được 15 lãnh đạo.
+2026-03-03 23:36:05,791 - INFO - --- Đang crawl Vietstock: ACL ---
+2026-03-03 23:36:06,784 - INFO - Thành công ACL: Lấy được 11 lãnh đạo.
+2026-03-03 23:36:07,788 - INFO - --- Đang crawl Vietstock: ADG ---
+2026-03-03 23:36:08,854 - INFO - Thành công ADG: Lấy được 9 lãnh đạo.
+2026-03-03 23:36:09,858 - INFO - --- Đang crawl Vietstock: ADP ---
+2026-03-03 23:36:11,127 - INFO - Thành công ADP: Lấy được 8 lãnh đạo.
+2026-03-03 23:36:12,129 - INFO - --- Đang crawl Vietstock: ADS ---
+2026-03-03 23:36:13,503 - INFO - Thành công ADS: Lấy được 14 lãnh đạo.
+2026-03-03 23:36:14,507 - INFO - --- Đang crawl Vietstock: AFX ---
+2026-03-03 23:36:15,370 - INFO - Thành công AFX: Lấy được 11 lãnh đạo.
+2026-03-03 23:36:16,376 - INFO - --- Đang crawl Vietstock: AGG ---
+2026-03-03 23:36:17,388 - INFO - Thành công AGG: Lấy được 7 lãnh đạo.
+2026-03-03 23:36:18,390 - INFO - --- Đang crawl Vietstock: AGR ---
+2026-03-03 23:36:19,531 - INFO - Thành công AGR: Lấy được 11 lãnh đạo.
+2026-03-03 23:36:20,534 - INFO - --- Đang crawl Vietstock: ANT ---
+2026-03-03 23:36:21,753 - INFO - Thành công ANT: Lấy được 12 lãnh đạo.
+2026-03-03 23:36:22,756 - INFO - --- Đang crawl Vietstock: ANV ---
+2026-03-03 23:36:23,828 - INFO - Thành công ANV: Lấy được 11 lãnh đạo.
+2026-03-03 23:36:24,831 - INFO - --- Đang crawl Vietstock: APG ---
+2026-03-03 23:36:26,189 - INFO - Thành công APG: Lấy được 7 lãnh đạo.
+2026-03-03 23:36:27,192 - INFO - --- Đang crawl Vietstock: APH ---
+2026-03-03 23:36:28,102 - INFO - Thành công APH: Lấy được 12 lãnh đạo.
+2026-03-03 23:36:29,106 - INFO - --- Đang crawl Vietstock: ASG ---
+2026-03-03 23:36:30,082 - INFO - Thành công ASG: Lấy được 8 lãnh đạo.
+2026-03-03 23:36:31,084 - INFO - --- Đang crawl Vietstock: ASM ---
+2026-03-03 23:36:31,968 - INFO - Thành công ASM: Lấy được 14 lãnh đạo.
+2026-03-03 23:36:32,974 - INFO - --- Đang crawl Vietstock: ASP ---
+2026-03-03 23:36:33,962 - INFO - Thành công ASP: Lấy được 7 lãnh đạo.
+2026-03-03 23:36:34,966 - INFO - --- Đang crawl Vietstock: AST ---
+2026-03-03 23:36:35,874 - INFO - Thành công AST: Lấy được 14 lãnh đạo.
+2026-03-03 23:36:36,878 - INFO - --- Đang crawl Vietstock: BAF ---
+2026-03-03 23:36:38,030 - INFO - Thành công BAF: Lấy được 12 lãnh đạo.
+2026-03-03 23:36:39,033 - INFO - --- Đang crawl Vietstock: BBC ---
+2026-03-03 23:36:40,034 - INFO - Thành công BBC: Lấy được 8 lãnh đạo.
+2026-03-03 23:36:41,037 - INFO - --- Đang crawl Vietstock: BCE ---
+2026-03-03 23:36:42,782 - INFO - Thành công BCE: Lấy được 12 lãnh đạo.
+2026-03-03 23:36:43,784 - INFO - --- Đang crawl Vietstock: BCG ---
+2026-03-03 23:36:45,011 - INFO - Thành công BCG: Lấy được 10 lãnh đạo.
+2026-03-03 23:36:46,013 - INFO - --- Đang crawl Vietstock: BCM ---
+2026-03-03 23:36:47,400 - INFO - Thành công BCM: Lấy được 16 lãnh đạo.
+2026-03-03 23:36:48,404 - INFO - --- Đang crawl Vietstock: BFC ---
+2026-03-03 23:36:51,819 - INFO - Thành công BFC: Lấy được 10 lãnh đạo.
+2026-03-03 23:36:52,822 - INFO - --- Đang crawl Vietstock: AAV ---
+2026-03-03 23:36:53,835 - INFO - Thành công AAV: Lấy được 8 lãnh đạo.
+2026-03-03 23:36:54,839 - INFO - --- Đang crawl Vietstock: ADC ---
+2026-03-03 23:36:56,192 - INFO - Thành công ADC: Lấy được 9 lãnh đạo.
+2026-03-03 23:36:57,195 - INFO - --- Đang crawl Vietstock: ALT ---
+2026-03-03 23:36:58,690 - INFO - Thành công ALT: Lấy được 13 lãnh đạo.
+2026-03-03 23:36:59,694 - INFO - --- Đang crawl Vietstock: AMC ---
+2026-03-03 23:37:05,003 - INFO - Thành công AMC: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:06,007 - INFO - --- Đang crawl Vietstock: AME ---
+2026-03-03 23:37:08,023 - INFO - Thành công AME: Lấy được 10 lãnh đạo.
+2026-03-03 23:37:09,025 - INFO - --- Đang crawl Vietstock: AMV ---
+2026-03-03 23:37:10,283 - INFO - Thành công AMV: Lấy được 7 lãnh đạo.
+2026-03-03 23:37:11,286 - INFO - --- Đang crawl Vietstock: API ---
+2026-03-03 23:37:12,694 - INFO - Thành công API: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:13,698 - INFO - --- Đang crawl Vietstock: APS ---
+2026-03-03 23:37:15,128 - INFO - Thành công APS: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:16,133 - INFO - --- Đang crawl Vietstock: ARM ---
+2026-03-03 23:37:17,760 - INFO - Thành công ARM: Lấy được 11 lãnh đạo.
+2026-03-03 23:37:18,767 - INFO - --- Đang crawl Vietstock: ATS ---
+2026-03-03 23:37:20,232 - INFO - Thành công ATS: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:21,243 - INFO - --- Đang crawl Vietstock: BAB ---
+2026-03-03 23:37:22,796 - INFO - Thành công BAB: Lấy được 17 lãnh đạo.
+2026-03-03 23:37:23,804 - INFO - --- Đang crawl Vietstock: BAX ---
+2026-03-03 23:37:25,072 - INFO - Thành công BAX: Lấy được 10 lãnh đạo.
+2026-03-03 23:37:26,080 - INFO - --- Đang crawl Vietstock: BBS ---
+2026-03-03 23:37:27,573 - INFO - Thành công BBS: Lấy được 10 lãnh đạo.
+2026-03-03 23:37:28,582 - INFO - --- Đang crawl Vietstock: BCC ---
+2026-03-03 23:37:30,699 - INFO - Thành công BCC: Lấy được 13 lãnh đạo.
+2026-03-03 23:37:31,708 - INFO - --- Đang crawl Vietstock: BCF ---
+2026-03-03 23:37:33,047 - INFO - Thành công BCF: Lấy được 13 lãnh đạo.
+2026-03-03 23:37:34,055 - INFO - --- Đang crawl Vietstock: BDB ---
+2026-03-03 23:37:36,435 - INFO - Thành công BDB: Lấy được 10 lãnh đạo.
+2026-03-03 23:37:37,442 - INFO - --- Đang crawl Vietstock: BED ---
+2026-03-03 23:37:41,691 - INFO - Thành công BED: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:42,701 - INFO - --- Đang crawl Vietstock: BKC ---
+2026-03-03 23:37:44,123 - INFO - Thành công BKC: Lấy được 12 lãnh đạo.
+2026-03-03 23:37:45,131 - INFO - --- Đang crawl Vietstock: BNA ---
+2026-03-03 23:37:46,372 - INFO - Thành công BNA: Lấy được 7 lãnh đạo.
+2026-03-03 23:37:47,381 - INFO - --- Đang crawl Vietstock: BPC ---
+2026-03-03 23:37:48,634 - INFO - Thành công BPC: Lấy được 9 lãnh đạo.
+2026-03-03 23:37:49,641 - INFO - --- Đang crawl Vietstock: BSC ---
+2026-03-03 23:37:51,225 - INFO - Thành công BSC: Lấy được 10 lãnh đạo.
+2026-03-03 23:37:52,228 - INFO - --- Đang crawl Vietstock: BST ---
+2026-03-03 23:37:53,367 - INFO - Thành công BST: Lấy được 1 lãnh đạo.
+2026-03-03 23:37:54,369 - INFO - --- Đang crawl Vietstock: BTS ---
+2026-03-03 23:37:56,504 - INFO - Thành công BTS: Lấy được 12 lãnh đạo.
+2026-03-03 23:37:57,512 - INFO - --- Đang crawl Vietstock: BTW ---
+2026-03-03 23:37:58,573 - INFO - Thành công BTW: Lấy được 13 lãnh đạo.
+2026-03-03 23:37:59,575 - INFO - --- Đang crawl Vietstock: BVS ---
+2026-03-03 23:38:00,480 - INFO - Thành công BVS: Lấy được 13 lãnh đạo.
+2026-03-03 23:38:01,482 - INFO - --- Đang crawl Vietstock: BXH ---
+2026-03-03 23:38:02,444 - INFO - Thành công BXH: Lấy được 10 lãnh đạo.
+2026-03-03 23:38:03,447 - INFO - --- Đang crawl Vietstock: C69 ---
+2026-03-03 23:38:04,575 - INFO - Thành công C69: Lấy được 12 lãnh đạo.
+2026-03-03 23:38:05,579 - INFO - --- Đang crawl Vietstock: CAG ---
+2026-03-03 23:38:06,696 - INFO - Thành công CAG: Lấy được 10 lãnh đạo.
+2026-03-03 23:38:07,698 - INFO - --- Đang crawl Vietstock: CAN ---
+2026-03-03 23:38:10,700 - INFO - Thành công CAN: Lấy được 10 lãnh đạo.
+2026-03-03 23:38:11,702 - INFO - --- Đang crawl Vietstock: CAP ---
+2026-03-03 23:38:12,971 - INFO - Thành công CAP: Lấy được 13 lãnh đạo.
+2026-03-03 23:38:13,973 - INFO - --- Đang crawl Vietstock: A32 ---
+2026-03-03 23:38:14,945 - INFO - Thành công A32: Lấy được 9 lãnh đạo.
+2026-03-03 23:38:15,949 - INFO - --- Đang crawl Vietstock: AAH ---
+2026-03-03 23:38:17,255 - INFO - Thành công AAH: Lấy được 12 lãnh đạo.
+2026-03-03 23:38:18,258 - INFO - --- Đang crawl Vietstock: AAS ---
+2026-03-03 23:38:19,278 - INFO - Thành công AAS: Lấy được 11 lãnh đạo.
+2026-03-03 23:38:20,280 - INFO - --- Đang crawl Vietstock: ABB ---
+2026-03-03 23:38:22,021 - INFO - Thành công ABB: Lấy được 15 lãnh đạo.
+2026-03-03 23:38:23,025 - INFO - --- Đang crawl Vietstock: ABC ---
+2026-03-03 23:38:24,142 - INFO - Thành công ABC: Lấy được 10 lãnh đạo.
+2026-03-03 23:38:25,145 - INFO - --- Đang crawl Vietstock: ABI ---
+2026-03-03 23:38:26,325 - INFO - Thành công ABI: Lấy được 13 lãnh đạo.
+2026-03-03 23:38:27,328 - INFO - --- Đang crawl Vietstock: ABW ---
+2026-03-03 23:38:28,462 - INFO - Thành công ABW: Lấy được 11 lãnh đạo.
+2026-03-03 23:38:29,465 - INFO - --- Đang crawl Vietstock: ACE ---
+2026-03-03 23:38:30,461 - INFO - Thành công ACE: Lấy được 9 lãnh đạo.
+2026-03-03 23:38:31,463 - INFO - --- Đang crawl Vietstock: ACM ---
+2026-03-03 23:38:32,405 - INFO - Thành công ACM: Lấy được 7 lãnh đạo.
+2026-03-03 23:38:33,407 - INFO - --- Đang crawl Vietstock: ACS ---
+2026-03-03 23:38:34,405 - INFO - Thành công ACS: Lấy được 12 lãnh đạo.
+2026-03-03 23:38:35,407 - INFO - --- Đang crawl Vietstock: ACV ---
+2026-03-03 23:38:36,764 - INFO - Thành công ACV: Lấy được 13 lãnh đạo.
+2026-03-03 23:38:37,766 - INFO - --- Đang crawl Vietstock: AG1 ---
+2026-03-03 23:38:38,724 - INFO - Thành công AG1: Lấy được 7 lãnh đạo.
+2026-03-03 23:38:39,727 - INFO - --- Đang crawl Vietstock: AGF ---
+2026-03-03 23:38:41,406 - INFO - Thành công AGF: Lấy được 10 lãnh đạo.
+2026-03-03 23:38:42,409 - INFO - --- Đang crawl Vietstock: AGM ---
+2026-03-03 23:38:43,638 - INFO - Thành công AGM: Lấy được 6 lãnh đạo.
+2026-03-03 23:38:44,640 - INFO - --- Đang crawl Vietstock: AGP ---
+2026-03-03 23:38:45,638 - INFO - Thành công AGP: Lấy được 12 lãnh đạo.
+2026-03-03 23:38:46,641 - INFO - --- Đang crawl Vietstock: AGX ---
+2026-03-03 23:38:47,649 - INFO - Thành công AGX: Lấy được 9 lãnh đạo.
+2026-03-03 23:38:48,652 - INFO - --- Đang crawl Vietstock: AIC ---
+2026-03-03 23:38:49,847 - INFO - Thành công AIC: Lấy được 12 lãnh đạo.
+2026-03-03 23:38:50,849 - INFO - --- Đang crawl Vietstock: AIG ---
+2026-03-03 23:38:52,158 - INFO - Thành công AIG: Lấy được 15 lãnh đạo.
+2026-03-03 23:38:53,160 - INFO - --- Đang crawl Vietstock: ALC ---
+2026-03-03 23:38:54,182 - INFO - Thành công ALC: Lấy được 11 lãnh đạo.
+2026-03-03 23:38:55,184 - INFO - --- Đang crawl Vietstock: ALV ---
+2026-03-03 23:38:56,061 - INFO - Thành công ALV: Lấy được 8 lãnh đạo.
+2026-03-03 23:38:57,062 - INFO - --- Đang crawl Vietstock: AMD ---
+2026-03-03 23:38:58,384 - INFO - Thành công AMD: Lấy được 11 lãnh đạo.
+2026-03-03 23:38:59,387 - INFO - --- Đang crawl Vietstock: AMP ---
+2026-03-03 23:39:00,741 - INFO - Thành công AMP: Lấy được 9 lãnh đạo.
+2026-03-03 23:39:01,743 - INFO - --- Đang crawl Vietstock: AMS ---
+2026-03-03 23:39:04,495 - INFO - Thành công AMS: Lấy được 12 lãnh đạo.
+2026-03-03 23:39:05,498 - INFO - --- Đang crawl Vietstock: APC ---
+2026-03-03 23:39:06,581 - INFO - Thành công APC: Lấy được 8 lãnh đạo.
+2026-03-03 23:39:07,584 - INFO - --- Đang crawl Vietstock: APF ---
+2026-03-03 23:39:10,735 - INFO - Thành công APF: Lấy được 10 lãnh đạo.
+2026-03-03 23:39:11,738 - INFO - --- Đang crawl Vietstock: APL ---
+2026-03-03 23:39:12,903 - INFO - Thành công APL: Lấy được 10 lãnh đạo.
+2026-03-03 23:39:13,905 - INFO - --- Đang crawl Vietstock: APP ---
+2026-03-03 23:39:14,901 - INFO - Thành công APP: Lấy được 9 lãnh đạo.
+2026-03-03 23:39:15,903 - INFO - --- Đang crawl Vietstock: APT ---
+2026-03-03 23:39:19,043 - INFO - Thành công APT: Lấy được 9 lãnh đạo.
+2026-03-03 23:39:20,046 - INFO - --- Đang crawl Vietstock: ART ---
+2026-03-03 23:39:20,850 - INFO - Thành công ART: Lấy được 8 lãnh đạo.
+2026-03-03 23:39:21,859 - INFO - --- Đang crawl Vietstock: ATA ---
+2026-03-03 23:39:27,000 - INFO - Thành công ATA: Lấy được 7 lãnh đạo.
+2026-03-03 23:39:28,159 - INFO - === KẾT QUẢ LƯU FILE ===
+2026-03-03 23:39:28,160 - INFO - File: ../data/raw/vietstock_board.parquet
+2026-03-03 23:39:28,161 - INFO - Nhận mới: 948 | Trùng bị loại: 948 | Tổng cộng: 857
+2026-03-04 00:49:18,762 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 00:49:18,851 - INFO - Đã lưu Parquet và xuất các báo cáo thành công.
+2026-03-04 00:50:46,791 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 00:50:46,883 - INFO - Đã lưu Parquet và xuất các báo cáo thành công.
+2026-03-04 00:55:26,646 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 00:55:26,731 - INFO - Không tìm thấy file cũ. Tạo mới file Golden Parquet.
+2026-03-04 00:55:26,751 - INFO - Hoàn tất: Đã cập nhật Parquet (1433 dòng) và làm mới các báo cáo Markdown.
+2026-03-04 01:02:22,809 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:02:22,907 - INFO - Đã xuất báo cáo chất lượng kèm phân tích Patterns.
+2026-03-04 01:04:33,927 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:04:34,017 - INFO - Đã xuất báo cáo chất lượng kèm phân tích Patterns.
+2026-03-04 01:05:46,499 - INFO - --- Đang lấy dữ liệu Vietstock: AAA ---
+2026-03-04 01:05:47,506 - INFO - Thành công AAA: Lấy được 11 lãnh đạo.
+2026-03-04 01:05:48,508 - INFO - --- Đang lấy dữ liệu Vietstock: AAM ---
+2026-03-04 01:05:49,601 - INFO - Thành công AAM: Lấy được 13 lãnh đạo.
+2026-03-04 01:06:15,987 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:06:16,079 - INFO - Đã xuất báo cáo chất lượng kèm phân tích Patterns.
+2026-03-04 01:07:33,695 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:07:33,789 - INFO - Đã xuất báo cáo chất lượng kèm phân tích Patterns.
+2026-03-04 01:13:43,412 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:13:43,501 - INFO - Đã lưu Golden Parquet tại: ../data/golden/vietstock_board_golden.parquet
+2026-03-04 01:13:43,513 - INFO - Đã hoàn thành toàn bộ báo cáo Quality Report và Data Dictionary.
+2026-03-04 01:15:09,764 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:15:09,856 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:15:09,870 - INFO - Đã hoàn thành toàn bộ báo cáo Quality Report và Data Dictionary.
+2026-03-04 01:20:49,533 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:20:49,633 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:20:49,646 - INFO - Đã hoàn thành toàn bộ báo cáo Quality Report và Data Dictionary.
+2026-03-04 01:22:30,753 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:22:30,842 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:22:30,852 - INFO - Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.
+2026-03-04 01:22:44,528 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:22:44,615 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:22:44,628 - INFO - Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.
+2026-03-04 01:27:52,287 - INFO - Đang tải dữ liệu thô từ folder raw...
+2026-03-04 01:27:52,325 - INFO - Đang thực hiện làm sạch tên và chuẩn hóa chức vụ...
+2026-03-04 01:27:52,340 - INFO - Đang lưu dữ liệu đã xử lý vào folder processed...
+2026-03-04 01:27:52,340 - INFO - Tạo mới file dữ liệu processed tại: ../data/processed/processed_cafef.parquet
+2026-03-04 01:27:52,347 - INFO - Tạo mới file dữ liệu processed tại: ../data/processed/processed_vietstock.parquet
+2026-03-04 01:27:52,351 - INFO - Đang tiến hành gộp dữ liệu thành Golden Dataset...
+2026-03-04 01:27:52,351 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:27:52,436 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:27:52,448 - INFO - Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.
+2026-03-04 01:27:52,448 - INFO - Hoàn tất toàn bộ quy trình.
+2026-03-04 01:42:27,155 - INFO - Đang tải dữ liệu thô từ folder raw...
+2026-03-04 01:42:27,204 - INFO - Đang thực hiện làm sạch tên và chuẩn hóa chức vụ...
+2026-03-04 01:42:27,218 - INFO - Đang lưu dữ liệu đã xử lý vào folder processed...
+2026-03-04 01:42:27,219 - INFO - Đang đọc dữ liệu cũ để gộp: ../data/processed/processed_cafef.parquet
+2026-03-04 01:42:27,223 - INFO - Đã loại bỏ 1330 bản ghi trùng. Thêm mới 0 bản ghi.
+2026-03-04 01:42:27,228 - INFO - Đang đọc dữ liệu cũ để gộp: ../data/processed/processed_vietstock.parquet
+2026-03-04 01:42:27,232 - INFO - Đã loại bỏ 857 bản ghi trùng. Thêm mới 0 bản ghi.
+2026-03-04 01:42:27,236 - INFO - Đang tiến hành gộp dữ liệu thành Golden Dataset...
+2026-03-04 01:42:27,236 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:42:27,331 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:42:27,342 - INFO - Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.
+2026-03-04 01:42:27,343 - INFO - Hoàn tất toàn bộ quy trình.
+2026-03-04 01:42:45,656 - INFO - Đang tải dữ liệu thô từ folder raw...
+2026-03-04 01:42:45,695 - INFO - Đang thực hiện làm sạch tên và chuẩn hóa chức vụ...
+2026-03-04 01:42:45,709 - INFO - Đang lưu dữ liệu đã xử lý vào folder processed...
+2026-03-04 01:42:45,710 - INFO - Đang đọc dữ liệu cũ để gộp: ../data/processed/processed_cafef.parquet
+2026-03-04 01:42:45,729 - INFO - Đã loại bỏ 1330 bản ghi trùng. Thêm mới 0 bản ghi.
+2026-03-04 01:42:45,734 - INFO - Đang đọc dữ liệu cũ để gộp: ../data/processed/processed_vietstock.parquet
+2026-03-04 01:42:45,754 - INFO - Đã loại bỏ 857 bản ghi trùng. Thêm mới 0 bản ghi.
+2026-03-04 01:42:45,758 - INFO - Đang tiến hành gộp dữ liệu thành Golden Dataset...
+2026-03-04 01:42:45,758 - INFO - Bắt đầu quy trình xây dựng Golden Dataset...
+2026-03-04 01:42:45,872 - INFO - Đã lưu Golden Parquet tại: ../data/final/golden_board.parquet
+2026-03-04 01:42:45,885 - INFO - Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.
+2026-03-04 01:42:45,886 - INFO - Hoàn tất toàn bộ quy trình.
