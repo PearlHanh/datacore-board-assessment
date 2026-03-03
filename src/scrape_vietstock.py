@@ -3,10 +3,10 @@ import json
 import time
 # file path lưu data được lưu
 
-file_path = "../data/raw/vietstock_board.parquet"
+file_path = "data/raw/vietstock_board.parquet"
 
 # Nơi lưu các tickers của mỗi exchange
-file_json_tickers ="../data/raw/all_tickers.json"
+file_json_tickers ="data/raw/all_tickers.json"
 
 result = []
 
@@ -21,4 +21,4 @@ for exchange, tickers_list in all_tickers.items():
         time.sleep(1)
 
 # Lưu vào parquet
-save_to_parquet(result, "../data/raw/vietstock_board.parquet")
+save_to_parquet(result, "data/raw/vietstock_board.parquet")

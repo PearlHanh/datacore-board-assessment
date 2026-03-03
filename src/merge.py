@@ -46,8 +46,8 @@ def save_incremental_processed(df_new: pd.DataFrame, file_path: str):
 
 # 1. Load data raw
 logger.info("Đang tải dữ liệu thô từ folder raw...")
-data_cafef = pd.read_parquet("../data/raw/cafef_board.parquet")
-data_vietstock = pd.read_parquet("../data/raw/vietstock_board.parquet")
+data_cafef = pd.read_parquet("data/raw/cafef_board.parquet")
+data_vietstock = pd.read_parquet("data/raw/vietstock_board.parquet")
 
 # 2. Xử lý làm sạch dữ liệu
 logger.info("Đang thực hiện làm sạch tên và chuẩn hóa chức vụ...")
@@ -59,8 +59,8 @@ data_vietstock["role"] = data_vietstock["role"].apply(remap_role_vietstock)
 
 # 3. Lưu dữ liệu đã xử lý (Incremental) trước khi merge
 logger.info("Đang lưu dữ liệu đã xử lý vào folder processed...")
-save_incremental_processed(data_cafef, "../data/processed/processed_cafef.parquet")
-save_incremental_processed(data_vietstock, "../data/processed/processed_vietstock.parquet")
+save_incremental_processed(data_cafef, "data/processed/processed_cafef.parquet")
+save_incremental_processed(data_vietstock, "data/processed/processed_vietstock.parquet")
 
 # 4. Merge 2 bảng thành golden data
 logger.info("Đang tiến hành gộp dữ liệu thành Golden Dataset...")

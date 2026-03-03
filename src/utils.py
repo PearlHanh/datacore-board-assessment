@@ -9,17 +9,17 @@ from unidecode import unidecode
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
-from curl_cffi import requests
 from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
-
+import requests as py_requests
+from curl_cffi import requests as curl_requests
 # --- CẤU HÌNH LOGGING ---
 # Ghi đồng thời ra file crawl_process.log và màn hình Console
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("../crawl_process.log", encoding='utf-8'),
+        logging.FileHandler("crawl_process.log", encoding='utf-8'),
         logging.StreamHandler()
     ]
 )
@@ -30,14 +30,14 @@ URL_CAFEF_TICKERS = "https://cafef.vn/du-lieu/ajax/pagenew/databusiness/congtyni
 EXCHANGES: Dict[str, str] = {"1": "HOSE", "2": "HNX", "9": "UPCOM"}
 
 
-def create_session() -> requests.Session:
+def create_session() -> py_requests.Session:
     """
     Tạo một session với cơ chế tự động thử lại (Retry) khi gặp lỗi kết nối.
 
     Returns:
         requests.Session: Session đã được cấu hình HTTPAdapter và Retry.
     """
-    session = requests.Session()
+    session = py_requests.Session()
     retry_strategy = Retry(
         total=5,
         backoff_factor=2,
@@ -83,6 +83,7 @@ def fetch_all_tickers_from_api() -> Dict[str, List[str]]:
                 
                 if response.status_code != 200:
                     logger.warning(f"Lỗi Status {response.status_code}. Đang thử lại tại skip {skip}...")
+                    time.sleep()
                     continue
                 
                 result = response.json()
@@ -102,7 +103,7 @@ def fetch_all_tickers_from_api() -> Dict[str, List[str]]:
                     break
                     
                 skip += take
-                time.sleep(random.uniform(1.5, 3.0))
+                time.sleep(2)
 
             except Exception as e:
                 logger.error(f"Lỗi nghiêm trọng tại skip {skip}: {e}", exc_info=True)
@@ -131,7 +132,7 @@ def get_board_data(ticker: str, exchange: str) -> List[Dict[str, Any]]:
     }
 
     try:
-        response = requests.get(url, headers=headers)
+        response = py_requests.get(url, headers=headers)
         if response.status_code != 200:
             logger.warning(f"Caféf {ticker} - Lỗi Status {response.status_code}")
             return []
@@ -195,7 +196,7 @@ def crawl_latest_board(ticker: str, exchange: str = "HOSE") -> List[Dict[str, An
     url_main = f"https://finance.vietstock.vn/{ticker}/ban-lanh-dao.htm"
     url_api = "https://finance.vietstock.vn/data/boarddetails"
     
-    session = requests.Session()
+    session = curl_requests.Session()
     scraped_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     current_year = datetime.now().year
     results: List[Dict[str, Any]] = []
@@ -488,7 +489,7 @@ def generate_reports(df: pd.DataFrame, vs_len: int, cf_len: int):
     df = df.replace(['NaN', 'nan', 'None', 'none', '', None], np.nan)
 
     # --- BƯỚC 1: LƯU FILE PARQUET (Requirement 3c) ---
-    parquet_path = "../data/final/golden_board.parquet"
+    parquet_path = "data/final/golden_board.parquet"
     df.to_parquet(parquet_path, index=False)
     logger.info(f"Đã lưu Golden Parquet tại: {parquet_path}")
     
@@ -537,7 +538,7 @@ def generate_reports(df: pd.DataFrame, vs_len: int, cf_len: int):
 *Các chức danh bị xung đột dữ liệu:*
 {common_role_conflicts}
 """
-    with open("../docs/data_quality_report.md", "w", encoding="utf-8") as f:
+    with open("docs/data_quality_report.md", "w", encoding="utf-8") as f:
         f.write(report_md)
 
     # --- BƯỚC 4: TẠO DATA DICTIONARY VỚI NULL RATE THỰC TẾ (Requirement 3d) ---
@@ -578,7 +579,7 @@ def generate_reports(df: pd.DataFrame, vs_len: int, cf_len: int):
 
         dict_md += f"| **{col}** | `{dtype}` | {desc} | {null_rate_str} | {caveat} |\n"
 
-    with open("../docs/data_dictionary.md", "w", encoding="utf-8") as f:
+    with open("docs/data_dictionary.md", "w", encoding="utf-8") as f:
         f.write(dict_md)
     
     logger.info("Đã hoàn tất toàn bộ báo cáo và từ điển dữ liệu.")

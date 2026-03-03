@@ -5,7 +5,7 @@ from utils import fetch_all_tickers_from_api, get_board_data  # Đảm bảo hà
 import os
 
 # Nơi lưu 
-JSON_PATH_TICKER = "../data/raw/all_tickers.json"
+JSON_PATH_TICKER = "data/raw/all_tickers.json"
 #Đọc dữ liệu tickers từ file json đã lưu
 final_tickers = fetch_all_tickers_from_api()
     
@@ -40,7 +40,7 @@ for exchange, ticker_list in all_tickers.items():
 
 new_data = pd.DataFrame(result)
 
-parquet_path = "../data/raw/cafef_board.parquet"
+parquet_path = "data/raw/cafef_board.parquet"
 os.makedirs(os.path.dirname(parquet_path), exist_ok=True)
 
 # Định nghĩa các cột dùng để xác định trùng lặp (không bao gồm scraped_at)
