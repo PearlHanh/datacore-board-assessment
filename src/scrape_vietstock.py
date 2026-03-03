@@ -14,6 +14,7 @@ with open(file_json_tickers, "r", encoding=("utf-8")) as f:
     all_tickers = json.load(f)
 
 for exchange, tickers_list in all_tickers.items():
+    # Thử nghiệm với 30 mã mỗi sàn, thay đổi ở :30 để lấy số lượng tùy nhu cầu
     for ticker in tickers_list[:30]:
         result.extend(crawl_latest_board(ticker, exchange))
         print(f"Xử lý thành công {ticker}")
