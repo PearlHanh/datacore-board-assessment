@@ -1,5 +1,3 @@
-Đây là nội dung file README.md được soạn thảo chuyên nghiệp, phản ánh đúng các kỹ thuật và quyết định thiết kế mà chúng ta đã thực hiện xuyên suốt dự án.
-
 # Vietnam Stock Market Board of Directors - Data Pipeline
 
 Dự án này là một hệ thống ETL (Extract, Transform, Load) chuyên sâu, thu thập dữ liệu về Ban lãnh đạo từ hai nguồn tài chính hàng đầu Việt Nam: Vietstock và CafeF. Hệ thống xử lý các xung đột dữ liệu để tạo ra một tập dữ liệu "Golden" duy nhất, chất lượng cao.
