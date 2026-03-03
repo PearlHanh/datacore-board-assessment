@@ -24,7 +24,7 @@ pip install requirements.txt
 ```
 
 ###Cấu trúc thư mục
-
+```
 datacore-board-assessment/
 ├── README.md                  # Setup, how to run, your approach
 ├── requirements.txt            # Python dependencies (pinned versions)
@@ -45,7 +45,7 @@ datacore-board-assessment/
 │   ├── main.ipynb             # EDA
 │   └── observe.md             # review table of data        
 └── tests/                         # Unit tests
-
+```
 ##🛠️ 2. How to Run
 
 Hệ thống được thiết kế chạy theo thứ tự các Task:
