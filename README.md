@@ -1,17 +1,17 @@
 Đây là nội dung file README.md được soạn thảo chuyên nghiệp, phản ánh đúng các kỹ thuật và quyết định thiết kế mà chúng ta đã thực hiện xuyên suốt dự án.
 
-#Vietnam Stock Market Board of Directors - Data Pipeline
+# Vietnam Stock Market Board of Directors - Data Pipeline
 
 Dự án này là một hệ thống ETL (Extract, Transform, Load) chuyên sâu, thu thập dữ liệu về Ban lãnh đạo từ hai nguồn tài chính hàng đầu Việt Nam: Vietstock và CafeF. Hệ thống xử lý các xung đột dữ liệu để tạo ra một tập dữ liệu "Golden" duy nhất, chất lượng cao.
 
-##🚀 1. Setup Instructions
+## 🚀 1. Setup Instructions
 
-###Cài đặt chương trình
+### Cài đặt chương trình
 ```bash
 git clone https://github.com/PearlHanh/datacore-board-assessment
 ```
 
-###Yêu cầu hệ thống
+### Yêu cầu hệ thống
 
 Python 3.9+
 
@@ -23,7 +23,7 @@ cd datacore-board-assesment
 pip install requirements.txt
 ```
 
-###Cấu trúc thư mục
+### Cấu trúc thư mục
 ```
 datacore-board-assessment/
 ├── README.md                  # Setup, how to run, your approach
@@ -46,28 +46,28 @@ datacore-board-assessment/
 │   └── observe.md             # review table of data        
 └── tests/                         # Unit tests
 ```
-##🛠️ 2. How to Run
+## 🛠️ 2. How to Run
 
 Hệ thống được thiết kế chạy theo thứ tự các Task:
 
-###Bước 1: Crawl dữ liệu từ CafeF
+### Bước 1: Crawl dữ liệu từ CafeF
 
 ```Bash
 python src/scrape_cafef.py
 ```
-###Bước 2: Crawl dữ liệu từ Vietstock (Vượt rào cản CSRF/TLS)
+### Bước 2: Crawl dữ liệu từ Vietstock (Vượt rào cản CSRF/TLS)
 
 ```Bash
 python src/scrape_vietstock.py
 ```
-###Bước 3: Hợp nhất dữ liệu và tạo Golden Dataset
+### Bước 3: Hợp nhất dữ liệu và tạo Golden Dataset
 
 ```Bash
 python src/merge.py
 ```
 
-##🧠 3. Technical Approach & Decisions
-###3.1. Chiến lược Thu thập Ticker list (Từ CafeF)
+## 🧠 3. Technical Approach & Decisions
+### 3.1. Chiến lược Thu thập Ticker list (Từ CafeF)
 Thay vì cào dữ liệu (Scraping) từ giao diện người dùng (DOM) vốn chậm và dễ lỗi khi giao diện thay đổi, dự án này tập trung vào việc truy tìm "Data Root" – các Endpoint API ẩn mà CafeF sử dụng để đổ dữ liệu vào trang Hồ sơ doanh nghiệp. Điều này cải thiện rất nhiều về mặt thời gian so với việc crawl từ giao diện.
 
 - Sử dụng Chrome DevTools để truy vết bằng cách tìm vị trí trang web gọi API sau khi load lại dữ liệu trong trang https://cafef.vn/du-lieu/du-lieu-doanh-nghiep.chn
@@ -87,7 +87,7 @@ Hàm fetch_all_tickers_from_api thực hiện việc truy vấn nguồn này the
     - major=0: Lấy tất cả ngành nghề (không lọc theo ngành cụ thể).
 
 
-###3.2. Chiến lược thu thập ban điều hành (CafeF)
+### 3.2. Chiến lược thu thập ban điều hành (CafeF)
 Tương tự như cách đi tìm data gốc của ticker list.
 
 - Phát hiện các yêu cầu đều được gửi đến tập tin https://cafef.vn/du-lieu/Ajax/PageNew/ListCeo.ashx?Symbol={ticker}&PositionGroup=0. Đây chính là gốc - nơi mà dữ liệu trang web nhận được.
@@ -101,7 +101,7 @@ Hàm get_board_data thực hiện việc thu thập nguồn này theo cách sau:
 *Chú ý: Hệ thống hiện tại đang lấy dữ liệu của 30 tickers mỗi sàn giao dịch, người dùng muốn thay đổi số lượng có thể sửa tại vị trí dòng code thứ 31 của src/scrape_cafef.py*
 
 
-###3.3. Lấy dữ liệu ban điều hành (Vietstock)
+### 3.3. Lấy dữ liệu ban điều hành (Vietstock)
 Khác với CafeF cho phép truy cập API khá cởi mở, Vietstock thiết kế hệ thống theo mô hình bảo mật nhiều lớp. Để lấy được dữ liệu "gốc", hệ thống phải thực hiện một quy trình giả lập trình duyệt hoàn chỉnh.
 
 Dữ liệu Ban lãnh đạo của Vietstock không nằm trong mã nguồn HTML. Nó được tải động từ một Internal API Endpoint: https://finance.vietstock.vn/data/boarddetails
@@ -121,10 +121,10 @@ Do đặc thù của web cập nhật dữ liệu ban điều hành mỗi 6 thá
 
 *Chú ý: Hệ thống hiện tại đang lấy dữ liệu của 30 tickers mỗi sàn giao dịch, người dùng muốn thay đổi số lượng có thể sửa tại vị trí dòng code thứ 18 của src/scrape_vietstock.py*
 
-###3.4. Lưu dữ liệu  
+### 3.4. Lưu dữ liệu  
 Sử dụng Apache Parquet thay vì CSV để đảm bảo bảo toàn kiểu dữ liệu (Schema), nén dữ liệu tốt và hỗ trợ xử lý hiệu năng cao cho các công cụ BI hoặc Data Science.
 
-###3.5. Merge dữ liệu thành golden board
+### 3.5. Merge dữ liệu thành golden board
 Hệ thống sử dụng phương pháp Composite Join Key kết hợp với Rule-based Conflict Resolution để đảm bảo dữ liệu "Golden" đạt chất lượng cao nhất.
 
 - Composite Key (Khóa phức hợp): Hệ thống không chỉ join theo tên, mà dùng bộ ba ticker + exchange + normalized_name. Điều này giúp phân biệt chính xác một người nếu họ cùng tên nhưng ở các sàn khác nhau hoặc mã chứng khoán khác nhau.
@@ -145,13 +145,13 @@ Quản trị chất lượng (Data Governance):
 - Confidence Score (0.7 - 1.0): Mỗi dòng dữ liệu được gán một điểm số tin cậy. Dữ liệu có sự xác nhận từ cả hai nguồn (both) sẽ có điểm tuyệt đối (1.0).
 - Data Quality Category: Phân loại bản ghi (Perfect, Good, Low) giúp người dùng cuối (Data Scientist/Analyst) biết được mức độ đầy đủ của dữ liệu trước khi đưa vào mô hình phân tích.
 
-###3.6. Công việc cần cải thiện khi có thêm thời gian
+### 3.6. Công việc cần cải thiện khi có thêm thời gian
 Hệ thống cần chú trọng hơn vào việc xử lý dữ liệu, với trường dữ liệu "role" bên dữ liệu Vietstock, cần chuẩn hóa toàn bộ để đồng bộ hơn với dữ liệu CafeF.
 
 Cấu trúc lại file log cho từng tác vụ.
 
 
-###3.7. Các hạn chế đã biết
+### 3.7. Các hạn chế đã biết
 Các mã cổ phiếu có thể lỗi:
 - Mã mới niêm yết hoặc OTC: Các mã cổ phiếu vừa lên sàn trong vòng 24-48h hoặc các mã thuộc sàn OTC có thể chưa được cập nhật đồng bộ trên API của Vietstock, dẫn đến lỗi 404 Not Found hoặc trả về mảng dữ liệu trống.
 - Mã bị tạm ngừng giao dịch/Hủy niêm yết: Một số mã cổ phiếu cũ vẫn tồn tại trong danh sách của CafeF nhưng trang hồ sơ doanh nghiệp đã bị gỡ bỏ, gây lỗi khi truy vấn API chi tiết.
