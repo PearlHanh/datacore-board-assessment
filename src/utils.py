@@ -1,251 +1,128 @@
-import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from bs4 import BeautifulSoup
 import time
+import requests
 from datetime import datetime
+import pandas as pd
+from urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
+import random
+URL = "https://cafef.vn/du-lieu/ajax/pagenew/databusiness/congtyniemyet.ashx"
+EXCHANGES = {"1": "HOSE", "2": "HNX", "9": "UPCOM"}
 
+
+# Tạo session để crawl
+def create_session():
+    session = requests.Session()
+    # Cơ chế tự động thử lại nếu gặp lỗi kết nối hoặc mã lỗi 429, 500, 502, 503, 504
+    retry = Retry(
+        total=5, 
+        backoff_factor=2, # Thời gian chờ tăng dần giữa các lần thử: 2s, 4s, 8s...
+        status_forcelist=[429, 500, 502, 503, 504]
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
+
+# Hàm lấy tickers cho mỗi exchange
+def fetch_all_tickers_from_api():
+    all_results = { "HOSE": [], "HNX": [], "UPCOM": [] }
+    take = 50 
+    session = create_session()
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Referer": "https://cafef.vn/doanh-nghiep.chn",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+
+    for center_id, exchange_name in EXCHANGES.items():
+        skip = 0
+        print(f"\n--- Đang lấy dữ liệu sàn {exchange_name} ---")
+        
+        while True:
+            params = {"centerid": center_id, "skip": skip, "take": take, "major": 0}
+            
+            try:
+                # Tăng timeout lên 30 giây để tránh lỗi mạng chậm
+                response = session.get(URL, params=params, headers=headers, timeout=30)
+                
+                if response.status_code != 200:
+                    print(f"  ! Lỗi Status {response.status_code}. Thử lại...")
+                    continue
+                
+                result = response.json()
+                data_list = result.get("Data", [])
+                
+                if not data_list:
+                    break
+                
+                for item in data_list:
+                    symbol = item.get("Symbol")
+                    if symbol:
+                        all_results[exchange_name].append(symbol.upper())
+                
+                print(f"  > Đã lấy được {skip + len(data_list)} mã...")
+                
+                if len(data_list) < take:
+                    break
+                    
+                skip += take
+                
+                # NGHỈ NGẪU NHIÊN: Rất quan trọng để không bị coi là Bot
+                # Nghỉ từ 1.5 đến 3 giây giữa mỗi request
+                time.sleep(random.uniform(1.5, 3.0))
+
+            except Exception as e:
+                print(f"  ! Lỗi nghiêm trọng tại skip {skip}: {e}")
+                print("  ! Đang tạm nghỉ 10s trước khi thử lại...")
+                time.sleep(10)
+                continue # Thử lại vị trí bị lỗi thay vì break hẳn
+                
+    return all_results
 
 
 # Crawl data các tickers 
-
-def crawl_cafef_tickers(exchange_index):
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-    chrome_options.add_argument("--log-level=3")
+def get_board_data(ticker, exchange):
+    # URL API của CaféF
+    url = f"https://cafef.vn/du-lieu/Ajax/PageNew/ListCeo.ashx?Symbol={ticker}&PositionGroup=0"
     
-    driver = webdriver.Chrome(options=chrome_options)
-    url = "https://cafef.vn/du-lieu/du-lieu-doanh-nghiep.chn"
-    driver.get(url)
-    wait = WebDriverWait(driver, 15)
-
-    all_tickers = []
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://cafef.vn/"
+    }
 
     try:
-        # --- Ghi nhớ mã đầu tiên của bảng để biết bảng có đổi  ---
-        try:
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "table.table-data-business tbody tr td.col-1 a")))
-            old_first_ticker = driver.find_element(By.CSS_SELECTOR, "table.table-data-business tbody tr td.col-1 a").text.strip()
-        except:
-            old_first_ticker = "EMPTY"
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return []
 
-        # --- Chọn sàn trong dropdown ---
-        select_element = wait.until(EC.presence_of_element_located((By.ID, "inp-data-business-center")))
-        select = Select(select_element)
-        select.select_by_value(exchange_index) 
-        time.sleep(0.5)
-
-        # --- Bấm nút tìm kiếm ---
-        # Tìm nút div có onclick chứa handleSearchCompany
-        try:
-            search_btn_xpath = "//div[contains(@onclick, 'handleSearchCompany')]"
-            search_button = wait.until(EC.element_to_be_clickable((By.XPATH, search_btn_xpath)))
-            driver.execute_script("arguments[0].click();", search_button)
-            print(f"Đã bấm nút Tìm kiếm cho sàn {exchange_index}")
-        except Exception as e:
-            print(f"Không tìm thấy nút Tìm kiếm: {e}")
-
-        # --- Đợi load bảng mới ---
-        def table_has_changed(d):
-            try:
-                current_first = d.find_element(By.CSS_SELECTOR, "table.table-data-business tbody tr td.col-1 a").text.strip()
-                return current_first != old_first_ticker
-            except:
-                return False
+        json_data = response.json()
+        results = []
         
-        try:
-            # Đợi tối đa 10s để dữ liệu sàn mới hiện ra
-            wait.until(table_has_changed)
-        except:
-            print("Lưu ý: Bảng có thể không thay đổi nội dung hoặc sàn này không có dữ liệu.")
+        # Lấy thời gian scrape theo chuẩn ISO 8601
+        scraped_at = datetime.now().isoformat()
 
-        time.sleep(1) # Nghỉ thêm 1s cho ổn định
-
-        # --- Lặp qua từng trang để lấy mã ---
-        page_num = 1
-        last_first_ticker = ""
-
-        while True:
-            # print(f"Đang xử lý Sàn [{exchange_index}] - Trang {page_num}...")
-            
-            # Đợi bảng ổn định
-            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "table-data-business")))
-            rows = driver.find_elements(By.CSS_SELECTOR, "table.table-data-business tbody tr")
-            
-            if not rows:
-                break
-
-            current_page_tickers = []
-            for row in rows:
-                try:
-                    ticker = row.find_element(By.CSS_SELECTOR, "td.col-1 a").text.strip()
-                    if ticker:
-                        current_page_tickers.append(ticker)
-                except:
-                    continue
-
-            # Kiểm tra dừng nếu trang bị lặp (hết dữ liệu)
-            if current_page_tickers and current_page_tickers[0] == last_first_ticker:
-                break
-            
-            if current_page_tickers:
-                last_first_ticker = current_page_tickers[0]
-                all_tickers.extend(current_page_tickers)
-
-            # Bấm nút sang trang ---
-            try:
-                next_btn_xpath = "//div[contains(@onclick, 'pageIndex + 1')]"
-                next_buttons = driver.find_elements(By.XPATH, next_btn_xpath)
-
-                if next_buttons and next_buttons[0].is_displayed():
-                    current_old_ticker = current_page_tickers[0]
-                    driver.execute_script("arguments[0].click();", next_buttons[0])
-                    
-                    # Đợi trang tiếp theo load xong
-                    def page_has_changed(d):
-                        try:
-                            return d.find_element(By.CSS_SELECTOR, "table.table-data-business tbody tr td.col-1 a").text.strip() != current_old_ticker
-                        except:
-                            return False
-                    
-                    wait.until(page_has_changed)
-                    page_num += 1
-                else:
-                    break
-            except:
-                break
-
-    finally:
-        driver.quit()
-    
-    return all_tickers
-
-
-# Lấy dữ liệu các directors và onwers
-# def get_data(url, ticker, exchange, result):
-#     # Chạy ở chế độ ẩn danh
-#     chrome_options = Options()
-#     chrome_options.add_argument("--headless")
-
-
-#     driver = webdriver.Chrome(options=chrome_options)
-#     driver.get(url) 
-
-
-#     time.sleep(1)
-#     soup = BeautifulSoup(driver.page_source, "html.parser")
-#     driver.quit()
-
-#     # Kiểu 1: Gồm top các directory top people
-#     nodes_1 = soup.find_all("div", class_="directorandonwer_body-directory-topperson")
-#     for node in nodes_1:
-#         name_div = node.find("div", class_="directorandonwer_name-top")
-#         # Cấu trúc tên director được lưu trong thẻ <a> bên trong div
-#         name = name_div.find("a").text.strip() if name_div and name_div.find("a") else "N/A"
-
-#         # Cấu trúc role director được lưu ở directorandonwer_position-top
-#         pos_div = node.find("div", class_="directorandonwer_position-top")
-#         position = pos_div.text.strip() if pos_div else "N/A"
-#         scraped_at = datetime.now().replace(microsecond=0).isoformat()
-
-#         result.append({'ticker': ticker, 'exchange': exchange,'person_name': name, 'role': position, 'source': 'cafef', 'scraped_at:': scraped_at})
-
-
-#     # Kiểu 2: Gồm các another directory people
-
-#     nodes_2 = soup.find_all("div", class_="directorandonwer_body-directory-person")
-#     for node in nodes_2:
-#         name_tag = node.find("a")
-#         name = name_tag.text.strip() if name_tag else "N/A"
-#         pos_div = node.find("div", style_="")
-#         position = pos_div.get_text(strip=True) if pos_div else "N/A"
-#         scraped_at = datetime.now().replace(microsecond=0).isoformat()
-#         result.append({'ticker': ticker, 'exchange': exchange,'person_name': name, 'role': position, 'source': 'cafef', 'scraped_at:': scraped_at})
-
-#     # Kiểu 3: Các thành viên ban kiểm toán
-
-#     nodes_3 = soup.find_all("div", class_="directorandonwer_body-audit-list")
-
-#     for node in nodes_3:
-#         name_tag = node.find("a")
-#         name = name_tag.text.strip() if name_tag else "N/A"
-#         pos_div = node.find("div", style_="")
-#         position = pos_div.text.strip() if pos_div else "N/A"
-#         scraped_at = datetime.now().replace(microsecond=0).isoformat()
-#         result.append({'ticker': ticker, 'exchange': exchange,'person_name': name, 'role': position, 'source': 'cafef', 'scraped_at:': scraped_at})
-
-#     # Kiểu 4: Các thành viên vị trí khác
-#     nodes_4 = soup.find_all("div", class_="directorandonwer_body-different-list")
-#     for node in nodes_4:
-#         name_tag = node.find("a")
-#         name = name_tag.text.strip() if name_tag else "N/A"
-#         pos_div = node.find("div", style_="")
-#         position = pos_div.text.strip() if pos_div else "N/A"
-#         scraped_at = datetime.now().replace(microsecond=0).isoformat()
-#         result.append({'ticker': ticker, 'exchange': exchange,'person_name': name, 'role': position, 'source': 'cafef', 'scraped_at:': scraped_at})
-
-
-#     return result
-
-def get_data(url, ticker, exchange, result):
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-    chrome_options.add_argument("--log-level=3")
-
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.get(url) 
-
-    time.sleep(1)
-    soup = BeautifulSoup(driver.page_source, "html.parser")
-    driver.quit()
-
-    scraped_at = datetime.now().replace(microsecond=0).isoformat()
-
-    # --- Kiểu 1: Top People (Dùng class định danh vì cấu trúc này ổn định) ---
-    nodes_1 = soup.find_all("div", class_="directorandonwer_body-directory-topperson")
-    for node in nodes_1:
-        name_tag = node.find("div", class_="directorandonwer_name-top")
-        name = name_tag.find("a").get_text(strip=True) if name_tag and name_tag.find("a") else "N/A"
+        # DUYỆT QUA TẤT CẢ CÁC NHÓM (HĐQT, Ban Giám đốc, Ban kiểm soát...)
+        if "Data" in json_data and json_data["Data"]:
+            for group in json_data["Data"]:
+                # DUYỆT QUA TẤT CẢ THÀNH VIÊN TRONG NHÓM ĐÓ
+                for person in group.get("values", []):
+                    # Tạo bản ghi theo đúng Schema yêu cầu
+                    row = {
+                        "ticker": ticker.upper(),
+                        "exchange": exchange, # Vì API không trả về sàn, ta nên truyền vào từ danh sách có sẵn
+                        "person_name": person.get("Name"),
+                        "role": person.get("Position"),
+                        "source": "cafef",
+                        "scraped_at": scraped_at
+                    }
+                    results.append(row)
         
-        pos_tag = node.find("div", class_="directorandonwer_position-top")
-        position = pos_tag.get_text(strip=True) if pos_tag else "N/A"
-        
-        if name != "N/A":
-            result.append({'ticker': ticker, 'exchange': exchange, 'person_name': name, 'role': position, 'source': 'cafef', 'scraped_at': scraped_at})
+        return results
 
-    # --- Kiểu 2, 3: Các thành viên khác (Sử dụng danh sách chuỗi văn bản) ---
-    # Danh sách các class tương ứng với Kiểu 2, 3
-    other_node_classes = [
-        "directorandonwer_body-directory-person", # Kiểu 2
-        "directorandonwer_body-column-six"       # Kiểu 3
-    ]
+    except Exception as e:
+        print(f"Lỗi khi crawl {ticker}: {e}")
+        return []
 
-    for css_class in other_node_classes:
-        nodes = soup.find_all("div", class_=css_class)
-        for node in nodes:
-            # stripped_strings lấy ra list các chữ: [Tên, Chức vụ, Tuổi]
-            content_list = list(node.stripped_strings)
-            
-            if len(content_list) >= 1:
-                name = content_list[0] # Phần tử đầu là Tên
-                
-                # Phần tử thứ 2 là Chức vụ. Nếu không có thì để N/A
-                position = content_list[1] if len(content_list) > 1 else "N/A"
-                
-                # Loại bỏ các trường hợp rác hoặc hàng trống
-                if name != "N/A" and name != "":
-                    result.append({
-                        'ticker': ticker, 
-                        'exchange': exchange,
-                        'person_name': name, 
-                        'role': position, 
-                        'source': 'cafef', 
-                        'scraped_at': scraped_at
-                    })
 
-    return result
