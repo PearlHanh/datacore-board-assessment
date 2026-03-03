@@ -16,35 +16,35 @@ HNX có ID: 2
 '''
 
 #Crawl tất cả dữ liệu tickers của mỗi sàn
-# upcom_tickers = crawl_cafef_tickers("9")
-# hose_tickers = crawl_cafef_tickers("1")
-# hnx_tickers = crawl_cafef_tickers("2")
+upcom_tickers = crawl_cafef_tickers("9")
+hose_tickers = crawl_cafef_tickers("1")
+hnx_tickers = crawl_cafef_tickers("2")
 
-# new_all_tickers = {
-#     "upcom": upcom_tickers,
-#     "hose": hose_tickers,
-#     "hnx": hnx_tickers
-# }
+new_all_tickers = {
+    "upcom": upcom_tickers,
+    "hose": hose_tickers,
+    "hnx": hnx_tickers
+}
 
-# json_path = "../data/raw/all_tickers.json"
+json_path = "../data/raw/all_tickers.json"
 
-# # Nếu file tồn tại thì merge
-# if os.path.exists(json_path):
-#     with open(json_path, "r", encoding="utf-8") as f:
-#         old_data = json.load(f)
-# else:
-#     old_data = {}
+# Nếu file tồn tại thì merge
+if os.path.exists(json_path):
+    with open(json_path, "r", encoding="utf-8") as f:
+        old_data = json.load(f)
+else:
+    old_data = {}
 
-# old_data.update(new_all_tickers)
+old_data.update(new_all_tickers)
 
-# with open(json_path, "w", encoding="utf-8") as f:
-#     json.dump(old_data, f, ensure_ascii=False, indent=4)
+with open(json_path, "w", encoding="utf-8") as f:
+    json.dump(old_data, f, ensure_ascii=False, indent=4)
 
-# all_tickers = old_data
+all_tickers = old_data
 
 
-with open("../data/raw/all_tickers.json", "r", encoding="utf-8") as f:
-    all_tickers = json.load(f)
+# with open("../data/raw/all_tickers.json", "r", encoding="utf-8") as f:
+#     all_tickers = json.load(f)
  
 
 # Crawl dữ liệu ban lãnh đạo, dùng 30 mã chứng khoán mỗi sàn
