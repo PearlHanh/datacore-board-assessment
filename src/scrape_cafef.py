@@ -27,7 +27,7 @@ with open(JSON_PATH_TICKER, "r", encoding="utf-8") as f:
 
 result = []
 for exchange, ticker_list in all_tickers.items():
-    # Thử nghiệm với 30 mã mỗi sàn
+    # Thử nghiệm với 30 mã mỗi sàn, thay đổi ở :30 để lấy số lượng tùy nhu cầu
     for ticker in ticker_list[:30]:
         data_list = get_board_data(ticker, exchange)
         
