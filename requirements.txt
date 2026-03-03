@@ -7,3 +7,7 @@ datetime
 pyarrow
 json
 os
+curl_cffi
+urllib3
+re
+

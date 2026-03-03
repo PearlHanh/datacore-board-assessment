@@ -1,6 +1,3 @@
-import os
-import pandas as pd
-from datetime import datetime
 from utils import crawl_latest_board, save_to_parquet
 import json
 import time
