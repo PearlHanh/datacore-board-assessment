@@ -18,7 +18,7 @@ Cài đặt các thư viện cần thiết:
 
 ```bash
 cd datacore-board-assessment
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Cấu trúc thư mục
