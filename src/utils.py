@@ -13,6 +13,7 @@ from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import requests as py_requests
 from curl_cffi import requests as curl_requests
+
 # --- CẤU HÌNH LOGGING ---
 # Ghi đồng thời ra file crawl_process.log và màn hình Console
 logging.basicConfig(
@@ -53,65 +54,95 @@ def create_session() -> py_requests.Session:
 Phần này dùng cho task 1, dùng để lấy data cần thiết của cafef
 """
 
+
 def fetch_all_tickers_from_api() -> Dict[str, List[str]]:
     """
-    Lấy danh sách tất cả mã chứng khoán (tickers) từ API của CaféF theo từng sàn.
-
-    Returns:
-        Dict[str, List[str]]: Dictionary chứa danh sách mã theo sàn (HOSE, HNX, UPCOM).
+    Lấy danh sách tickers với cơ chế chống chặn và kiểm tra lỗi logic.
     """
     all_results: Dict[str, List[str]] = {"HOSE": [], "HNX": [], "UPCOM": []}
-    take = 50
+    take = 60
     session = create_session()
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
         "Referer": "https://cafef.vn/doanh-nghiep.chn",
         "Accept": "application/json, text/javascript, */*; q=0.01",
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
+        "Connection": "keep-alive"
     }
 
     for center_id, exchange_name in EXCHANGES.items():
         skip = 0
-        logger.info(f"--- Đang lấy dữ liệu sàn {exchange_name} ---")
+        empty_retry_count = 0  # Đếm số lần nhận data rỗng liên tiếp
+        max_empty_retries = 3   # Thử lại tối đa 3 lần nếu nhận data rỗng
+        
+        logger.info(f"--- BẮT ĐẦU SÀN {exchange_name} ---")
         
         while True:
             params = {"centerid": center_id, "skip": skip, "take": take, "major": 0}
             
             try:
+                # 1. Gửi request
                 response = session.get(URL_CAFEF_TICKERS, params=params, headers=headers, timeout=30)
                 
+                # 2. Kiểm tra Http Status
                 if response.status_code != 200:
-                    logger.warning(f"Lỗi Status {response.status_code}. Đang thử lại tại skip {skip}...")
-                    time.sleep()
+                    logger.warning(f"[{exchange_name}] Lỗi HTTP {response.status_code} tại skip {skip}. Nghỉ 5s...")
+                    time.sleep(5)
                     continue
-                
-                result = response.json()
+
+                # 3. Kiểm tra định dạng JSON (Tránh trường hợp trả về trang HTML cảnh báo)
+                try:
+                    result = response.json()
+                except Exception:
+                    logger.error(f"[{exchange_name}] Server không trả về JSON tại skip {skip}. Nội dung: {response.text[:100]}")
+                    time.sleep(10)
+                    continue
+
                 data_list = result.get("Data", [])
                 
+                # 4. Xử lý logic dừng (Quan trọng nhất)
                 if not data_list:
-                    break
+                    if empty_retry_count < max_empty_retries:
+                        empty_retry_count += 1
+                        logger.info(f"[{exchange_name}] Nhận data rỗng tại skip {skip}. Thử lại lần {empty_retry_count}...")
+                        time.sleep(5)
+                        continue
+                    else:
+                        logger.info(f"--- HOÀN THÀNH SÀN {exchange_name} (Hết dữ liệu tại skip {skip}) ---")
+                        break
                 
+                # Nếu có dữ liệu, reset biến đếm thử lại rỗng
+                empty_retry_count = 0
+                
+                # 5. Lưu dữ liệu
+                current_batch = []
                 for item in data_list:
                     symbol = item.get("Symbol")
                     if symbol:
-                        all_results[exchange_name].append(symbol.upper())
+                        symbol_upper = symbol.upper()
+                        if symbol_upper not in all_results[exchange_name]: # Tránh trùng lặp
+                            all_results[exchange_name].append(symbol_upper)
+                            current_batch.append(symbol_upper)
                 
-                logger.info(f"  > {exchange_name}: Đã lấy được {skip + len(data_list)} mã...")
+                logger.info(f"  > {exchange_name}: +{len(current_batch)} mã (Tổng: {len(all_results[exchange_name])})")
                 
+                # Nếu số lượng lấy được ít hơn 'take', khả năng cao là trang cuối
                 if len(data_list) < take:
+                    logger.info(f"--- KẾT THÚC SÀN {exchange_name} (Trang cuối) ---")
                     break
                     
                 skip += take
-                time.sleep(2)
+                # Nghỉ ngẫu nhiên để tránh bị nhận diện là bot
+                time.sleep(random.uniform(2.5, 4.5))
 
             except Exception as e:
-                logger.error(f"Lỗi nghiêm trọng tại skip {skip}: {e}", exc_info=True)
-                logger.info("Đang tạm nghỉ 10s trước khi thử lại...")
-                time.sleep(10)
+                logger.error(f"Lỗi hệ thống tại {exchange_name}, skip {skip}: {str(e)}")
+                time.sleep(15) # Nghỉ dài khi có lỗi kết nối nặng
                 continue 
                 
     return all_results
+
 
 
 def get_board_data(ticker: str, exchange: str) -> List[Dict[str, Any]]:
